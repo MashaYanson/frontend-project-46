@@ -7,7 +7,7 @@
   "description": "[![Actions Status](https://github.com/MashaYanson/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/MashaYanson/frontend-project-46/actions)",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest --watch"
   },
   "type": "module",
   "repository": {
