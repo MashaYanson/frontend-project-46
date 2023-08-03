@@ -1,11 +1,13 @@
 import fs from 'fs';
 import path from 'path';
+import parse from './parsers/parse.js';
+
 
 const diff = (filepath1, filepath2) => {
     const file1Content = fs.readFileSync(path.resolve(filepath1), 'utf-8');
     const file2Content = fs.readFileSync(path.resolve(filepath2), 'utf-8');
-    const file1 = JSON.parse(file1Content);
-    const file2 = JSON.parse(file2Content);
+    const file1 = parse(file1Content);
+    const file2 = parse(file2Content);
     const keys = Array.from(new Set([...Object.keys(file1), ...Object.keys(file2)])).sort();
 
     let result = "{\n";

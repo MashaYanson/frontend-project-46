@@ -1,5 +1,5 @@
 // Функция для сравнения двух плоских JSON-объектов
-const compareJSON = (json1, json2) => {
+const compareFiles = (json1, json2) => {
   const keys1 = Object.keys(json1);
   const keys2 = Object.keys(json2);
 
@@ -18,4 +18,4 @@ const compareJSON = (json1, json2) => {
 
   return true;
 };
-export default compareJSON;
+export default compareFiles;
