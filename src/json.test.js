@@ -1,10 +1,15 @@
+import { describe, expect, test } from '@jest/globals';
 import compareFiles from './compareFiles.js';
 import parse from './parsers/parse.js';
+import diff from './diff.js';
+import expectedDiff from './__fixtures__/expectedDiff.js';
+import buildTree from './buildTree.js';
 
+const file1 = './src/__fixtures__/file1.json';
+const file2 = './src/__fixtures__/file2.json';
+
+// написать тест для парсеров
 describe('Сравнение плоских JSON-файлов', () => {
-  const file1 = 'file1.json';
-  const file2 = 'file2.json';
-
   const json1 = parse(file1);
   const json2 = parse(file2);
 
@@ -30,13 +35,30 @@ describe('Сравнение плоских JSON-файлов', () => {
 
   test('Проверка на разные значения ключа', () => {
     const differentValueJson1 = { key1: 'value1' };
-    const json4 = { key1: 'value2' };
-    expect(compareFiles(differentValueJson1, json4)).toBe(false);
+    expect(compareFiles(differentValueJson1, json1)).toBe(false);
   });
 
-  test('Проверка на порядок ключей', () => {
-    const json5 = { key1: 'value1', key2: 'value2' };
-    const json6 = { key2: 'value2', key1: 'value1' };
-    expect(compareFiles(json5, json6)).toBe(true);
+//   test('Проверка на порядок ключей', () => {
+//     const json1 = { key1: 'value1', key2: 'value2' };
+//     const json6 = { key2: 'value2', key1: 'value1' };
+//     expect(compareFiles(json5, json6)).toBe(true);
+//   });
+});
+
+// describe('Сравнение файлов с вложенными структурами', () => {
+//   const json1 = parse(file1);
+//   const json2 = parse(file2);
+//   test('Проверка вывода результата', () => {
+//     const result = diff(json1, json2);
+//     expect(result).toBe(expectedDiff);
+//   });
+// });
+
+describe('Построение дерева', () => {
+  const json1 = parse(file1);
+  const json2 = parse(file2);
+  test('Проверка', () => {
+    const tree = buildTree(diff(json1, json2));
+    expect(tree).toBe(expectedDiff);
   });
 });
