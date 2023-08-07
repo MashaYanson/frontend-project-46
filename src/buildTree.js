@@ -1,29 +1,64 @@
-const SPACING = 4;
-const prefixMap = {
-  unchanged: '  ',
-  deleted: '- ',
-  added: '+ ',
-  clear: '',
-};
-const getSpacing = (deep, spacing, status) => {
-  let i = deep * spacing - 2;
-  let result = '';
+import isObject from './isObject.js';
 
-  while (i > 0) {
-    result += ' ';
-    i -= 1;
-  }
-  result += prefixMap[status];
-  return result;
-};
-const buildTree = (tree, deep = 1) => {
-  let result = '{\n';
+import getMatch from './getStatus.js';
 
-  tree.forEach((node) => {
-    result += `${getSpacing(deep, SPACING, node.status)}${node.key}: ${node.hasChildren ? buildTree(node.value, deep + 1) : node.value}\n`;
+export const status = {
+  unchanged: 'unchanged',
+  deleted: 'deleted',
+  added: 'added',
+};
+
+const buildTree = (obj1, obj2) => {
+  const keys = Array.from(new Set([...Object.keys(obj1), ...Object.keys(obj2)])).sort();
+  const getValue = (item1, item2) => {
+    if (isObject(item1)) {
+      return buildTree(item1, item2);
+    }
+    return item1;
+  };
+
+  const result = [];
+
+  keys.forEach((key) => {
+    // eslint-disable-next-line no-prototype-builtins
+    const hasKey1 = obj1.hasOwnProperty(key);
+    // eslint-disable-next-line no-prototype-builtins
+    const hasKey2 = obj2.hasOwnProperty(key);
+
+    if (hasKey1 && hasKey2 && getMatch(obj1[key], obj2[key])) {
+      const node = {
+        // eslint-disable-next-line max-len
+        key, value: getValue(obj1[key], obj2[key]), status: status.unchanged, hasChildren: isObject(obj1[key]),
+      };
+      result.push(node);
+    }
+    if (hasKey1 && hasKey2 && !getMatch(obj1[key], obj2[key])) {
+      const node1 = {
+        // eslint-disable-next-line max-len
+        key, value: getValue(obj1[key], obj1[key]), status: status.deleted, hasChildren: isObject(obj1[key]),
+      };
+      const node2 = {
+        // eslint-disable-next-line max-len
+        key, value: getValue(obj2[key], obj2[key]), status: status.added, hasChildren: isObject(obj2[key]),
+      };
+      result.push(node1, node2);
+    }
+    if (hasKey1 && !hasKey2) {
+      const node = {
+        // eslint-disable-next-line max-len
+        key, value: getValue(obj1[key], obj1[key]), status: status.deleted, hasChildren: isObject(obj1[key]),
+      };
+      result.push(node);
+    }
+    if (!hasKey1 && hasKey2) {
+      const node = {
+        // eslint-disable-next-line max-len
+        key, value: getValue(obj2[key], obj2[key]), status: status.added, hasChildren: isObject(obj2[key]),
+      };
+      result.push(node);
+    }
   });
-
-  result += `${getSpacing(deep - 1, 4, deep - 1 ? 'unchanged' : 'clear')}}`;
   return result;
 };
+
 export default buildTree;

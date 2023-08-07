@@ -1,9 +1,9 @@
 import { describe, expect, test } from '@jest/globals';
 import compareFiles from './compareFiles.js';
 import parse from './parsers/parse.js';
-import diff from './diff.js';
-import expectedDiff from './__fixtures__/expectedDiff.js';
 import buildTree from './buildTree.js';
+import expectedDiff from './__fixtures__/expectedDiff.js';
+import stylish from './stylish.js';
 
 const file1 = './src/__fixtures__/file1.json';
 const file2 = './src/__fixtures__/file2.json';
@@ -49,7 +49,7 @@ describe('Сравнение плоских JSON-файлов', () => {
 //   const json1 = parse(file1);
 //   const json2 = parse(file2);
 //   test('Проверка вывода результата', () => {
-//     const result = diff(json1, json2);
+//     const result = buildTree(json1, json2);
 //     expect(result).toBe(expectedDiff);
 //   });
 // });
@@ -58,7 +58,7 @@ describe('Построение дерева', () => {
   const json1 = parse(file1);
   const json2 = parse(file2);
   test('Проверка', () => {
-    const tree = buildTree(diff(json1, json2));
+    const tree = stylish(buildTree(json1, json2));
     expect(tree).toBe(expectedDiff);
   });
 });
