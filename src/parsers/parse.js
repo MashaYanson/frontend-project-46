@@ -1,11 +1,6 @@
-// path.extname(path)
-import fs from 'fs';
 import yaml from 'js-yaml';
-import path from 'path';
 
-const parseFile = (filename) => {
-  const data = fs.readFileSync(filename, 'utf8');
-  const extFormat = path.extname(filename);
+const parseFile = (data, extFormat) => {
   if (extFormat === '.json') {
     return JSON.parse(data);
   }
@@ -13,7 +8,7 @@ const parseFile = (filename) => {
     try {
       return yaml.safeLoad(data);
     } catch (e) {
-      console.error(`Error parsing YAML file: ${filename}`);
+      console.error(`Error parsing YAML file: ${data}`);
       return {};
     }
   }

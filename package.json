@@ -1,11 +1,10 @@
 {
   "bin": {
-    "gendiff": "bin/gendiff.mjs"
+    "gendiff": "bin/gendiff.js"
   },
   "name": "gendiff",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/MashaYanson/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/MashaYanson/frontend-project-46/actions)",
-  "main": "index.js",
   "scripts": {
     "test": "npx jest --silent=false"
   },
@@ -22,7 +21,8 @@
   "homepage": "https://github.com/MashaYanson/frontend-project-46#readme",
   "dependencies": {
     "commander": "^10.0.1",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@jest/globals": "^29.0.1",

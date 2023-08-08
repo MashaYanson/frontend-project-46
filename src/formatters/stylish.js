@@ -20,6 +20,7 @@ const stylish = (tree, deep = 1) => {
   let result = '{\n';
 
   tree.forEach((node) => {
+    // eslint-disable-next-line max-len
     result += `${getSpacing(deep, SPACING, node.status)}${node.key}: ${node.hasChildren ? stylish(node.value, deep + 1) : node.value}\n`;
   });
 

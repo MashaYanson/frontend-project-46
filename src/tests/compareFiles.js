@@ -1,11 +1,11 @@
 // Функция для сравнения двух плоских JSON-объектов
-import isObject from './isObject.js';
+import _ from 'lodash';
 
 const compareFiles = (json1, json2) => {
-  if (!isObject(json1) && !isObject(json2)) {
+  if (!_.isPlainObject(json1) && !_.isPlainObject(json2)) {
     return json1 === json2;
   }
-  if (isObject(json1) && isObject((json2))) {
+  if (_.isPlainObject(json1) && _.isPlainObject((json2))) {
     const keys1 = Object.keys(json1);
     const keys2 = Object.keys(json2);
     // Проверка на равное количество ключей

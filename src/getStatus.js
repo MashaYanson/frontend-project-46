@@ -1,7 +1,7 @@
-import isObject from './isObject.js';
+import _ from 'lodash';
 
 const getMatch = (old, next) => {
-  if (isObject(old) && isObject(next)) {
+  if (_.isPlainObject(old) && _.isPlainObject(next)) {
     return true;
   }
   return old === next;

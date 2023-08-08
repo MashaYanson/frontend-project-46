@@ -1,9 +1,9 @@
 import { describe, expect, test } from '@jest/globals';
 import compareFiles from './compareFiles.js';
-import parse from './parsers/parse.js';
-import buildTree from './buildTree.js';
-import expectedDiff from './__fixtures__/expectedDiff.js';
-import stylish from './stylish.js';
+import parse from '../parsers/parse.js';
+import buildTree from '../buildTree.js';
+import expectedDiff from '../__fixtures__/expectedDiff.js';
+import stylish from '../formatters/stylish.js';
 
 const file1 = './src/__fixtures__/file1.json';
 const file2 = './src/__fixtures__/file2.json';
