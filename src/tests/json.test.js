@@ -1,18 +1,23 @@
 import { describe, expect, test } from '@jest/globals';
+import fs from 'fs';
+import path from 'path';
 import compareFiles from './compareFiles.js';
 import parse from '../parsers/parse.js';
 import buildTree from '../buildTree.js';
 import expectedDiff from '../__fixtures__/expectedDiff.js';
 import stylish from '../formatters/stylish.js';
 
-const file1 = './src/__fixtures__/file1.json';
-const file2 = './src/__fixtures__/file2.json';
+const file1 = 'src/__fixtures__/file1.json';
+const file2 = 'src/__fixtures__/file2.json';
 
 // написать тест для парсеров
 describe('Сравнение плоских JSON-файлов', () => {
-  const json1 = parse(file1);
-  const json2 = parse(file2);
-
+  const data1 = fs.readFileSync(file1, 'utf8');
+  const data2 = fs.readFileSync(file2, 'utf8');
+  const extFormat1 = path.extname(file1);
+  const extFormat2 = path.extname(file2);
+  const json1 = parse(data1, extFormat1);
+  const json2 = parse(data2, extFormat2);
   test('Проверка на равенство', () => {
     expect(compareFiles(json1, json1)).toBe(true);
   });
@@ -55,8 +60,12 @@ describe('Сравнение плоских JSON-файлов', () => {
 // });
 
 describe('Построение дерева', () => {
-  const json1 = parse(file1);
-  const json2 = parse(file2);
+  const data1 = fs.readFileSync(file1, 'utf8');
+  const data2 = fs.readFileSync(file2, 'utf8');
+  const extFormat1 = path.extname(file1);
+  const extFormat2 = path.extname(file2);
+  const json1 = parse(data1, extFormat1);
+  const json2 = parse(data2, extFormat2);
   test('Проверка', () => {
     const tree = stylish(buildTree(json1, json2));
     expect(tree).toBe(expectedDiff);

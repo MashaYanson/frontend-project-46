@@ -7,9 +7,12 @@ export const status = {
 };
 
 const buildTree = (obj1, obj2) => {
+  if (obj1 === null || obj1 === undefined || obj2 === null || obj2 === undefined) {
+    throw new Error('Input objects cannot be null or undefined.');
+  }
   const keys = Array.from(new Set([...Object.keys(obj1), ...Object.keys(obj2)])).sort();
   const getValue = (item1, item2) => {
-    if (_.isPlainObject(item1)) {
+    if (_.isPlainObject(item1) && _.isPlainObject(item2)) {
       return buildTree(item1, item2);
     }
     return item1;
