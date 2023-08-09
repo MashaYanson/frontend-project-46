@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import getMatch from './getStatus.js';
 
 export const status = {
   unchanged: 'unchanged',
@@ -7,12 +8,9 @@ export const status = {
 };
 
 const buildTree = (obj1, obj2) => {
-  if (obj1 === null || obj1 === undefined || obj2 === null || obj2 === undefined) {
-    throw new Error('Input objects cannot be null or undefined.');
-  }
   const keys = Array.from(new Set([...Object.keys(obj1), ...Object.keys(obj2)])).sort();
   const getValue = (item1, item2) => {
-    if (_.isPlainObject(item1) && _.isPlainObject(item2)) {
+    if (_.isPlainObject(item1)) {
       return buildTree(item1, item2);
     }
     return item1;
@@ -26,13 +24,13 @@ const buildTree = (obj1, obj2) => {
     // eslint-disable-next-line no-prototype-builtins
     const hasKey2 = obj2.hasOwnProperty(key);
 
-    if (hasKey1 && hasKey2 && (obj1[key] === obj2[key])) {
+    if (hasKey1 && hasKey2 && getMatch(obj1[key], obj2[key])) {
       const node = {
         key, value: getValue(obj1[key], obj2[key]), status: status.unchanged, hasChildren: _.isPlainObject(obj1[key]),
       };
       result.push(node);
     }
-    if (hasKey1 && hasKey2 && (obj1[key] !== obj2[key])) {
+    if (hasKey1 && hasKey2 && !getMatch(obj1[key], obj2[key])) {
       const node1 = {
         key, value: getValue(obj1[key], obj1[key]), status: status.deleted, hasChildren: _.isPlainObject(obj1[key]),
       };

@@ -20,7 +20,6 @@ const genDiff = (file1, file2, { format }) => {
   const obj1 = parse(data1, extFormat1);
   const obj2 = parse(data2, extFormat2);
   // строим дерево
-  console.log(obj1,obj2)
   const tree = buildTree(obj1, obj2);
   // форматируем выводим
   console.log(formatersMap[format](tree));

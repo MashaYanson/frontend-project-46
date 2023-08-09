@@ -1,7 +1,6 @@
 import yaml from 'js-yaml';
 
 const parseFile = (data, extFormat) => {
-  console.log()
   if (extFormat === '.json') {
     return JSON.parse(data);
   }
