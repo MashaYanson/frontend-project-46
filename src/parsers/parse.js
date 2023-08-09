@@ -1,4 +1,4 @@
-import yaml from 'js-yaml';
+import YAML from 'yaml';
 
 const parseFile = (data, extFormat) => {
   if (extFormat === '.json') {
@@ -6,7 +6,7 @@ const parseFile = (data, extFormat) => {
   }
   if (extFormat === '.yml' || extFormat === '.yaml') {
     try {
-      return yaml.safeLoad(data);
+      return YAML.parse(data);
     } catch (e) {
       console.error(`Error parsing YAML file: ${data}`);
       return {};
