@@ -3,9 +3,11 @@ import path from 'path';
 import parse from './parsers/parse.js';
 import buildTree from './buildTree.js';
 import stylish from './formatters/stylish.js';
+import plain from './formatters/plain.js';
 
 const formatersMap = {
   stylish,
+  plain,
 };
 const genDiff = (file1, file2, { format }) => {
   // получаем абсолютные пути
@@ -19,9 +21,11 @@ const genDiff = (file1, file2, { format }) => {
   const extFormat2 = path.extname(file2);
   const obj1 = parse(data1, extFormat1);
   const obj2 = parse(data2, extFormat2);
+
   // строим дерево
   const tree = buildTree(obj1, obj2);
   // форматируем выводим
+  // console.table(JSON.stringify(tree, null, 4));
   console.log(formatersMap[format](tree));
 };
 export default genDiff;

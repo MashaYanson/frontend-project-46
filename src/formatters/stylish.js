@@ -1,4 +1,7 @@
+import { status as statuses } from '../buildTree.js';
+
 const SPACING = 4;
+
 const prefixMap = {
   unchanged: '  ',
   deleted: '- ',
@@ -19,9 +22,19 @@ const getSpacing = (deep, spacing, status) => {
 const stylish = (tree, deep = 1) => {
   let result = '{\n';
 
+  // eslint-disable-next-line consistent-return
   tree.forEach((node) => {
     // eslint-disable-next-line max-len
-    result += `${getSpacing(deep, SPACING, node.status)}${node.key}: ${node.hasChildren ? stylish(node.value, deep + 1) : node.value}\n`;
+    if (node.status === statuses.changed) {
+      // eslint-disable-next-line max-len
+      result += `${getSpacing(deep, SPACING, statuses.deleted)}${node.key}: ${node.hasOldChildren ? stylish(node.oldValue, deep + 1) : node.oldValue}\n`;
+      // eslint-disable-next-line max-len
+      result += `${getSpacing(deep, SPACING, statuses.added)}${node.key}: ${node.hasChildren ? stylish(node.value, deep + 1) : node.value}\n`;
+    } else {
+      // eslint-disable-next-line max-len
+      result += `${getSpacing(deep, SPACING, node.status)}${node.key}: ${node.hasChildren ? stylish(node.value, deep + 1) : node.value}\n`;
+    }
+    // eslint-disable-next-line max-len
   });
 
   result += `${getSpacing(deep - 1, 4, deep - 1 ? 'unchanged' : 'clear')}}`;

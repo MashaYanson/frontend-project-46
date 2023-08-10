@@ -1,29 +1,43 @@
-const descriptionMap = {
-  deleted: ' was removed ',
-  added: ' was added with value:  ',
-  updated: '  was updated. ',
+import { status } from '../buildTree.js';
 
+// eslint-disable-next-line no-shadow
+const getValue = (value) => {
+  if (typeof value === 'string') {
+    return `'${value}'`;
+  }
+  if (typeof value === 'number' || typeof value === 'boolean' || value === null) {
+    return value;
+  }
+  return '[complex value]';
 };
 
-const getDescription = (status) => {
-  return descriptionMap[status]
-}
+const descriptionMap = {
+  deleted: ({ path }) => `Property '${path}' was removed`,
+  added: ({ value, path }) => `Property '${path}' was added with value: ${getValue(value)}`,
+  // eslint-disable-next-line max-len
+  changed: ({ oldValue, value, path }) => `Property '${path}' was updated. From ${getValue(oldValue)} to ${getValue(value)}`,
+};
 
-//найти родителей каждого ключа
-const plain = (tree) => {
+// найти родителей каждого ключа
+function plain(tree) {
   let result = '';
-  tree.forEach((node) => {
-    // result += `Property ${node.key} ${getDescription(node.status)}  `
-    switch (node.status) {
-      case 'deleted':
-        result += `Property ${node.key} ${getDescription(node.status)}\n`;
-        break
-      case 'added':
-        result += `Property ${node.key} ${getDescription(node.status)}\n`;
-        break
-      case 'updated':
-        result += `Property ${node.key} ${getDescription(node.status)} From ${}\n`
+  // eslint-disable-next-line no-restricted-syntax
+  for (const node of tree) {
+    if (node.status === status.added || node.status === status.deleted) {
+      result += `${descriptionMap[node.status](node)}\n`;
+    }
+    if (node.status === status.changed) {
+      result += `${descriptionMap.changed(node)}\n`;
+      if (node.hasChildren) {
+        result += `${plain(node.value)}`;
+      }
+    }
+    if (node.status === status.unchanged) {
+      if (node.hasChildren) {
+        result += `${plain(node.value, true)}`;
+      }
     }
   }
+  return result;
 }
-export default plain();
+export default plain;
