@@ -4,10 +4,12 @@ import parse from './parsers/parse.js';
 import buildTree from './buildTree.js';
 import stylish from './formatters/stylish.js';
 import plain from './formatters/plain.js';
+import json from './formatters/json.js';
 
 const formatersMap = {
   stylish,
   plain,
+  json,
 };
 const genDiff = (file1, file2, { format }) => {
   // получаем абсолютные пути
