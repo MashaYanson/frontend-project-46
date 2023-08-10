@@ -1,4 +1,4 @@
-const  expectedJsonDiff = `[
+const expectedJsonDiff = `[
   {
     "key": "common",
     "status": "unchanged",
@@ -207,5 +207,5 @@ const  expectedJsonDiff = `[
       }
     ]
   }
-]`
+]`;
 export default expectedJsonDiff;
