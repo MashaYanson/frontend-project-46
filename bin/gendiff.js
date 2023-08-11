@@ -13,3 +13,4 @@ program
   .option('-f, --format <type>', 'output format', 'stylish')
   .action(genDiff)
   .parse();
+export default program;
