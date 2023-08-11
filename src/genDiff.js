@@ -27,7 +27,6 @@ const genDiff = (file1, file2, { format }) => {
   // строим дерево
   const tree = buildTree(obj1, obj2);
   // форматируем выводим
-  // console.table(JSON.stringify(tree, null, 4));
   console.log(formatersMap[format](tree));
 };
 export default genDiff;
