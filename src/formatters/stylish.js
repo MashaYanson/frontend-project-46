@@ -20,24 +20,19 @@ const getSpacing = (deep, spacing, status) => {
   return result;
 };
 const stylish = (tree, deep = 1) => {
-  let result = '{\n';
-
-  // eslint-disable-next-line consistent-return
-  tree.forEach((node) => {
-    // eslint-disable-next-line max-len
+  const result = tree.reduce((acc, node) => {
     if (node.status === statuses.changed) {
       // eslint-disable-next-line max-len
-      result += `${getSpacing(deep, SPACING, statuses.deleted)}${node.key}: ${node.hasOldChildren ? stylish(node.oldValue, deep + 1) : node.oldValue}\n`;
+      const item1 = `${getSpacing(deep, SPACING, statuses.deleted)}${node.key}: ${node.hasOldChildren ? stylish(node.oldValue, deep + 1) : node.oldValue}\n`;
       // eslint-disable-next-line max-len
-      result += `${getSpacing(deep, SPACING, statuses.added)}${node.key}: ${node.hasChildren ? stylish(node.value, deep + 1) : node.value}\n`;
-    } else {
-      // eslint-disable-next-line max-len
-      result += `${getSpacing(deep, SPACING, node.status)}${node.key}: ${node.hasChildren ? stylish(node.value, deep + 1) : node.value}\n`;
+      const item2 = `${getSpacing(deep, SPACING, statuses.added)}${node.key}: ${node.hasChildren ? stylish(node.value, deep + 1) : node.value}\n`;
+      return acc + item1 + item2;
     }
     // eslint-disable-next-line max-len
-  });
-
-  result += `${getSpacing(deep - 1, 4, deep - 1 ? 'unchanged' : 'clear')}}`;
-  return result;
+    const item = `${getSpacing(deep, SPACING, node.status)}${node.key}: ${node.hasChildren ? stylish(node.value, deep + 1) : node.value}\n`;
+    return acc + item;
+  }, '{\n');
+  return `${result}${getSpacing(deep - 1, 4, deep - 1 ? 'unchanged' : 'clear')}}`;
+  // eslint-disable-next-line consistent-return
 };
 export default stylish;
