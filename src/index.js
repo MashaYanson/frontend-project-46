@@ -11,8 +11,8 @@ const formatersMap = {
   plain,
   json,
 };
-const genDiff = (file1, file2, options) => {
-  const format = options.format ?? 'stylish';
+const genDiff = (file1, file2, format = 'stylish') => {
+  // const format = options.format ?? 'stylish';
   // получаем абсолютные пути
   const absolutePath1 = path.resolve(process.cwd(), file1);
   const absolutePath2 = path.resolve(process.cwd(), file2);
