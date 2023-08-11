@@ -20,24 +20,27 @@ const descriptionMap = {
 
 // найти родителей каждого ключа
 function plain(tree) {
-  let result = '';
-  // eslint-disable-next-line no-restricted-syntax
-  for (const node of tree) {
+  return tree.reduce((acc, node) => {
     if (node.status === status.added || node.status === status.deleted) {
-      result += `${descriptionMap[node.status](node)}\n`;
+      const item = `${descriptionMap[node.status](node)}\n`;
+      return acc + item;
     }
     if (node.status === status.changed) {
-      result += `${descriptionMap.changed(node)}\n`;
+      const newAcc = `${acc}${descriptionMap.changed(node)}\n`;
       if (node.hasChildren) {
-        result += `${plain(node.value)}`;
+        const item = `${plain(node.value)}`;
+        return newAcc + item;
       }
+      return newAcc;
     }
     if (node.status === status.unchanged) {
       if (node.hasChildren) {
-        result += `${plain(node.value, true)}`;
+        const item = `${plain(node.value)}`;
+        return acc + item;
       }
+      return acc;
     }
-  }
-  return result;
+    return acc;
+  }, '');
 }
 export default plain;
