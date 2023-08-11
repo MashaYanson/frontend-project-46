@@ -11,7 +11,7 @@ const formatersMap = {
   plain,
   json,
 };
-const genDiff = (file1, file2, options) => {
+const index = (file1, file2, options) => {
   const format = options.format ?? 'stylish';
   // получаем абсолютные пути
   const absolutePath1 = path.resolve(process.cwd(), file1);
@@ -30,4 +30,4 @@ const genDiff = (file1, file2, options) => {
   // форматируем выводим
   console.log(formatersMap[format](tree));
 };
-export default genDiff;
+export default index;
