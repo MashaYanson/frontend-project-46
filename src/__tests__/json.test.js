@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
-import compareFiles from '../compareFiles.js';
+import compareFiles from '../__fixtures__/compareFiles.js';
 import parse from '../parsers/parse.js';
 import buildTree from '../buildTree.js';
 import expectedDiff from '../__fixtures__/expectedDiff.js';
