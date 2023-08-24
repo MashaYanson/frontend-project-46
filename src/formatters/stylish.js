@@ -8,16 +8,16 @@ const prefixMap = {
   added: '+ ',
   clear: '',
 };
-const getSpacing = (deep, spacing, status) => {
-  let i = deep * spacing - 2;
-  let result = '';
 
-  while (i > 0) {
-    result += ' ';
-    i -= 1;
-  }
-  result += prefixMap[status];
-  return result;
+const getSpacing = (deep, spacing, status) => {
+  const generateSpacing = (i, result) => {
+    if (i <= 0) {
+      return result + prefixMap[status];
+    }
+    return generateSpacing(i - 1, `${result} `);
+  };
+
+  return generateSpacing(deep * spacing - 2, '');
 };
 const stylish = (tree, deep = 1) => {
   const result = tree.reduce((acc, node) => {
