@@ -8,7 +8,7 @@ import json from './formatters/json.js';
 
 const formatersMap = {
   stylish,
-  plain,
+  plain: (tree) => plain(tree).trim(),
   json,
 };
 const genDiff = (file1, file2, format = 'stylish') => {
@@ -28,6 +28,7 @@ const genDiff = (file1, file2, format = 'stylish') => {
   // строим дерево
   const tree = buildTree(obj1, obj2);
   // форматируем выводим
+  console.log(formatersMap[format](tree));
   return (formatersMap[format](tree));
 };
 export default genDiff;
