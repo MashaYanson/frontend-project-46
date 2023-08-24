@@ -9,14 +9,15 @@ export const status = {
 };
 
 function buildTree(obj1, obj2, path = '') {
-  const keys = Array.from(new Set([...Object.keys(obj1), ...Object.keys(obj2)])).sort();
+  const keys = Array.from(new Set([...Object.keys(obj1), ...Object.keys(obj2)]));
+  const sortedKeys = keys.sort();
   const getValue = (item1, item2, lpath) => {
     if (_.isPlainObject(item1)) {
       return buildTree(item1, item2, lpath);
     }
     return item1;
   };
-  return keys.reduce((acc, key) => {
+  return sortedKeys.reduce((acc, key) => {
     const newPath = path === '' ? `${key}` : `${path}.${key}`;
     // eslint-disable-next-line no-prototype-builtins
     const hasKey1 = obj1.hasOwnProperty(key);
