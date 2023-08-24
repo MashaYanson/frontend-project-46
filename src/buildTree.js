@@ -10,7 +10,7 @@ export const status = {
 
 function buildTree(obj1, obj2, path = '') {
   const keys = Array.from(new Set([...Object.keys(obj1), ...Object.keys(obj2)]));
-  const sortedKeys = keys.sort();
+  const sortedKeys = keys.slice().sort();
   const getValue = (item1, item2, lpath) => {
     if (_.isPlainObject(item1)) {
       return buildTree(item1, item2, lpath);
