@@ -22,13 +22,7 @@ const compareFiles = (json1, json2) => {
     }
     // Проверка наличия одинаковых ключей и значений
     // eslint-disable-next-line no-restricted-syntax
-    for (const key of keys1) {
-      if (!compareFiles(json1[key], json2[key])) {
-        return false;
-      }
-    }
-
-    return true;
+    return keys1.every((key) => compareFiles(json1[key], json2[key]));
   }
   return false;
 };
