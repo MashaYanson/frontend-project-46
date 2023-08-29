@@ -1,10 +1,10 @@
 import YAML from 'yaml';
 
-const parseFile = (data, extFormat) => {
-  if (extFormat === '.json') {
+const parseFile = (data, format) => {
+  if (format === '.json') {
     return JSON.parse(data);
   }
-  if (extFormat === '.yml' || extFormat === '.yaml') {
+  if (format === '.yml' || format === '.yaml') {
     try {
       return YAML.parse(data);
     } catch (e) {
