@@ -19,11 +19,22 @@ function buildTree(obj1, obj2, path = '') {
   };
   return sortedKeys.reduce((acc, key) => {
     const newPath = path === '' ? `${key}` : `${path}.${key}`;
-    // eslint-disable-next-line no-prototype-builtins
-    const hasKey1 = obj1.hasOwnProperty(key);
-    // eslint-disable-next-line no-prototype-builtins
-    const hasKey2 = obj2.hasOwnProperty(key);
-    if (hasKey1 && hasKey2 && getMatch(obj1[key], obj2[key])) {
+    // switch (key) {
+    //   case (_.has(obj1, key) && _.has(obj2, key) && getMatch(obj1[key], obj2[key])):
+    //     // eslint-disable-next-line no-case-declarations
+    //     const node = {
+    //       key,
+    //       status: status.unchanged,
+    //       hasChildren: _.isPlainObject(obj1[key]),
+    //       path: newPath,
+    //       value: getValue(obj1[key], obj2[key], newPath),
+    //
+    //     };
+    //     return [...acc, node];
+    //   default:
+    //     console.log('default');
+    // }
+    if (_.has(obj1, key) && _.has(obj2, key) && getMatch(obj1[key], obj2[key])) {
       const node = {
         key,
         status: status.unchanged,
@@ -34,7 +45,7 @@ function buildTree(obj1, obj2, path = '') {
       };
       return [...acc, node];
     }
-    if (hasKey1 && hasKey2 && !getMatch(obj1[key], obj2[key])) {
+    if (_.has(obj1, key) && _.has(obj2, key) && !getMatch(obj1[key], obj2[key])) {
       const node = {
         key,
         oldValue: getValue(obj1[key], obj1[key], newPath),
@@ -47,7 +58,7 @@ function buildTree(obj1, obj2, path = '') {
       };
       return [...acc, node];
     }
-    if (hasKey1 && !hasKey2) {
+    if (_.has(obj1, key) && !_.has(obj2, key)) {
       const node = {
         key,
         status: status.deleted,
