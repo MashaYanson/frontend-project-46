@@ -23,7 +23,7 @@ const genDiff = (file1, file2, format = 'stylish') => {
   const obj2 = parse(data2, extFormat2);
 
   const tree = buildTree(obj1, obj2);
-
+  console.log(JSON.stringify(tree, null, 2));
   return (formatersMap[format](tree));
 };
 export default genDiff;
