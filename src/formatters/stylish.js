@@ -22,26 +22,21 @@ const stylish = (tree) => {
       const {
         key, status, value, children,
       } = node;
-      let line = '';
       switch (status) {
         case 'added':
-          line = `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
-          break;
+          return `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
         case 'deleted':
-          line = `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
-          break;
+          return `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
         case 'changed':
-          line = `${indent}${prefixMap.deleted}${key}: ${stringifyValue(value.old, depth + 1)}\n`;
-          line += `${indent}${prefixMap.added}${key}: ${stringifyValue(value.new, depth + 1)}`;
-          break;
+          // eslint-disable-next-line max-len
+          return `${indent}${prefixMap.deleted}${key}: ${stringifyValue(value.old, depth + 1)}\n${indent}${prefixMap.added}${key}: ${stringifyValue(value.new, depth + 1)}`;
+        case 'unchanged':
+          return `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
         case 'nested':
-          line = `${indent}${prefixMap[status]}${key}: ${convertASTToString(children, depth + 1)}`;
-          break;
+          return `${indent}${prefixMap[status]}${key}: ${convertASTToString(children, depth + 1)}`;
         default:
-          line = `${indent}${prefixMap.nested}${key}: ${stringifyValue(value, depth + 1)}`;
-          break;
+          return `${indent}${prefixMap.nested}${key}: ${stringifyValue(value, depth + 1)}`;
       }
-      return `${line}`;
     });
     return `{\n${lines.join('\n')}\n${'    '.repeat(depth)}}`;
   }
