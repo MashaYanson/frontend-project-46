@@ -20,7 +20,7 @@ const stylish = (tree) => {
     const indent = depth ? '    '.repeat(depth) : '';
     const lines = ast.map((node) => {
       const {
-        key, status, value, children,
+        key, status, value, children, value1, value2,
       } = node;
       switch (status) {
         case 'added':
@@ -29,7 +29,7 @@ const stylish = (tree) => {
           return `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
         case 'changed':
           // eslint-disable-next-line max-len
-          return `${indent}${prefixMap.deleted}${key}: ${stringifyValue(value.old, depth + 1)}\n${indent}${prefixMap.added}${key}: ${stringifyValue(value.new, depth + 1)}`;
+          return `${indent}${prefixMap.deleted}${key}: ${stringifyValue(value1, depth + 1)}\n${indent}${prefixMap.added}${key}: ${stringifyValue(value2, depth + 1)}`;
         case 'unchanged':
           return `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
         case 'nested':

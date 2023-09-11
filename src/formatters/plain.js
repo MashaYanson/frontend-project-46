@@ -14,7 +14,7 @@ const getValue = (value) => {
 // найти родителей каждого ключа
 const plain = (tree) => {
   const iter = (node, parent = '') => node.reduce((str, {
-    key, status, value, children,
+    key, status, value, children, value1, value2,
   }) => {
     const path = parent ? `${parent}.${key}` : key;
     switch (status) {
@@ -26,7 +26,7 @@ const plain = (tree) => {
 
       case 'changed':
         // eslint-disable-next-line max-len
-        return `${str}Property '${path}' was updated. From ${getValue(value.old)} to ${getValue(value.new)}\n`;
+        return `${str}Property '${path}' was updated. From ${getValue(value1)} to ${getValue(value2)}\n`;
 
       case 'nested':
         return `${str}${iter(children, path)}`;

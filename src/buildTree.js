@@ -41,10 +41,8 @@ function buildTree(obj1, obj2) {
       return {
         key,
         status: status.changed,
-        value: {
-          old: value1,
-          new: value2,
-        },
+        value1,
+        value2,
       };
     }
     return {

@@ -21,10 +21,8 @@ const expectedJsonDiff = `[
       {
         "key": "setting3",
         "status": "changed",
-        "value": {
-          "old": true,
-          "new": null
-        }
+        "value1": true,
+        "value2": null
       },
       {
         "key": "setting4",
@@ -49,10 +47,8 @@ const expectedJsonDiff = `[
               {
                 "key": "wow",
                 "status": "changed",
-                "value": {
-                  "old": "",
-                  "new": "so much"
-                }
+                "value1": "",
+                "value2": "so much"
               }
             ]
           },
@@ -77,10 +73,8 @@ const expectedJsonDiff = `[
       {
         "key": "baz",
         "status": "changed",
-        "value": {
-          "old": "bas",
-          "new": "bars"
-        }
+        "value1": "bas",
+        "value2": "bars"
       },
       {
         "key": "foo",
@@ -90,12 +84,10 @@ const expectedJsonDiff = `[
       {
         "key": "nest",
         "status": "changed",
-        "value": {
-          "old": {
-            "key": "value"
-          },
-          "new": "str"
-        }
+        "value1": {
+          "key": "value"
+        },
+        "value2": "str"
       }
     ]
   },
