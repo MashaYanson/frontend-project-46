@@ -2,7 +2,7 @@ const expectedJsonDiff = `[
   {
     "key": "common",
     "status": "nested",
-    "value": [
+    "children": [
       {
         "key": "follow",
         "status": "added",
@@ -41,11 +41,11 @@ const expectedJsonDiff = `[
       {
         "key": "setting6",
         "status": "nested",
-        "value": [
+        "children": [
           {
             "key": "doge",
             "status": "nested",
-            "value": [
+            "children": [
               {
                 "key": "wow",
                 "status": "changed",
@@ -73,7 +73,7 @@ const expectedJsonDiff = `[
   {
     "key": "group1",
     "status": "nested",
-    "value": [
+    "children": [
       {
         "key": "baz",
         "status": "changed",
