@@ -1,0 +1,35 @@
+groups:
+  Guest:
+    default: true
+    info:
+      prefix: '&7Guest&7'
+      suffix: ''
+      build: false
+    inheritance:
+    permissions:
+      - 'essentials.help'
+      - 'essentials.motd'
+      - 'essentials.spawn'
+  Member:
+    default: false
+    info:
+      prefix: '&3Member&3'
+      suffix: ''
+      build: true
+    inheritance:
+      - Default
+    permissions:
+      - 'essentials.warp'
+      - 'essentials.kit'
+      - 'essentials.sethome'
+      - 'essentials.home'
+      - 'containerprotect.use'
+  Admins:
+    default: false
+    info:
+      prefix: '&5Admin&5'
+      suffix: ''
+      build: true
+    inheritance:
+    permissions:
+      - '*'
