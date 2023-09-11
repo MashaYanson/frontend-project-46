@@ -21,7 +21,6 @@ const genDiff = (file1, file2, format = 'stylish') => {
   const extFormat2 = path.extname(file2);
   const obj1 = parse(data1, extFormat1);
   const obj2 = parse(data2, extFormat2);
-
   const tree = buildTree(obj1, obj2);
   return (formatersMap[format](tree));
 };
