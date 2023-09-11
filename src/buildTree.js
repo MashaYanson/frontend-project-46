@@ -12,11 +12,6 @@ function buildTree(obj1, obj2) {
   const keys = Array.from(new Set([...Object.keys(obj1), ...Object.keys(obj2)]));
   const sortedKeys = _.sortBy(keys);
 
-  /* {  key: item,
-    status: 'updated',
-    prevValue: obj1[item],
-    newValue: obj2[item],} */
-
   return sortedKeys.map((key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
