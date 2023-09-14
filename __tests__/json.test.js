@@ -3,10 +3,10 @@ import path from 'path';
 import expectedDiff from '../__fixtures__/expectedDiff.js';
 import expectedPlaneDiff from '../__fixtures__/expectedPlaneDiff.js';
 import expectedJsonDiff from '../__fixtures__/expectedJsonDiff.js';
-import genDiff from '../index.js';
+import genDiff from '../src/index.js';
 
-const file1 = 'src/__fixtures__/file1.json';
-const file2 = 'src/__fixtures__/file2.json';
+const file1 = '__fixtures__/file1.json';
+const file2 = '__fixtures__/file2.json';
 
 describe('Сравнение плоских JSON-файлов', () => {
   const filePath1 = path.resolve(file1);
