@@ -12,6 +12,5 @@ program
   .option('-V, --version', 'output the version number')
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format <type>', 'output format', 'stylish')
-  .action((file1, file2) => console.log(genDiff(file1, file2, program.opts().format)));
-
-program.parse();
+  .action((file1, file2) => console.log(genDiff(file1, file2, program.opts().format)))
+  .parse();
