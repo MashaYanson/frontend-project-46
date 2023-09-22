@@ -1,5 +1,4 @@
 ---
-
 plugins:
   # https://github.com/jest-community/eslint-plugin-jest
   - jest
@@ -13,7 +12,7 @@ extends:
   - 'plugin:jest/recommended'
 
 parserOptions:
-  ecmaVersion: latest
+  ecmaVersion: 2020
 
 rules:
   no-console: 0

@@ -1,35 +1,31 @@
-groups:
-  Guest:
-    default: true
-    info:
-      prefix: '&7Guest&7'
-      suffix: ''
-      build: false
-    inheritance:
-    permissions:
-      - 'essentials.help'
-      - 'essentials.motd'
-      - 'essentials.spawn'
-  Member:
-    default: false
-    info:
-      prefix: '&3Member&3'
-      suffix: ''
-      build: true
-    inheritance:
-      - Default
-    permissions:
-      - 'essentials.warp'
-      - 'essentials.kit'
-      - 'essentials.sethome'
-      - 'essentials.home'
-      - 'containerprotect.use'
-  Admins:
-    default: false
-    info:
-      prefix: '&5Admin&5'
-      suffix: ''
-      build: true
-    inheritance:
-    permissions:
-      - '*'
+{
+  "common": {
+    "follow": false,
+    "setting1": "Value 1",
+    "setting3": null,
+    "setting4": "blah blah",
+    "setting5": {
+      "key5": "value5"
+    },
+    "setting6": {
+      "key": "value",
+      "ops": "vops",
+      "doge": {
+        "wow": "so much"
+      }
+    }
+  },
+  "group1": {
+    "foo": "bar",
+    "baz": "bars",
+    "nest": "str"
+  },
+  "group3": {
+    "deep": {
+      "id": {
+        "number": 45
+      }
+    },
+    "fee": 100500
+  }
+}
