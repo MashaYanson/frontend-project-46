@@ -18,19 +18,19 @@ describe('Сравнение плоских JSON-файлов', () => {
   const fileJson2 = getFixturePath(file2);
 
   test('Проверка работы с дефолтным значением форматтера', () => {
-    const tree = genDiff(fileJson1, fileJson2);
-    expect(tree).toEqual(readFile('expectedDiff.txt'));
+    const diff = genDiff(fileJson1, fileJson2);
+    expect(diff).toEqual(readFile('expectedDiff.txt'));
   });
   test('Проверка json вида', () => {
-    const jsonTree = genDiff(fileJson1, fileJson2, 'json');
-    expect(jsonTree).toEqual(readFile('expectedJsonDiff.txt'));
+    const diff = genDiff(fileJson1, fileJson2, 'json');
+    expect(diff).toEqual(readFile('expectedJsonDiff.txt'));
   });
   test('Проверка stylish вида', () => {
-    const tree = genDiff(fileJson1, fileJson2, 'stylish');
-    expect(tree).toEqual(readFile('expectedDiff.txt'));
+    const diff = genDiff(fileJson1, fileJson2, 'stylish');
+    expect(diff).toEqual(readFile('expectedDiff.txt'));
   });
   test('Проверка плоского вида', () => {
-    const plain1 = genDiff(fileJson1, fileJson2, 'plain');
-    expect(plain1).toEqual(readFile('expectedPlaneDiff.txt'));
+    const diff = genDiff(fileJson1, fileJson2, 'plain');
+    expect(diff).toEqual(readFile('expectedPlaneDiff.txt'));
   });
 });
