@@ -1,20 +1,15 @@
 import YAML from 'yaml';
 
-const parseFile = (data, format) => {
+const parse = (data, format) => {
   switch (format) {
-    case '.json':
+    case 'json':
       return JSON.parse(data);
-
-    case '.yml' || '.yaml':
-      try {
-        return YAML.parse(data);
-      } catch (e) {
-        console.error(`Error parsing YAML file: ${data}`);
-        return {};
-      }
-
+    case 'yaml':
+    case 'yml':
+      return YAML.parse(data);
     default:
+      console.error(`Error unsupported format: ${data}`);
       return {};
   }
 };
-export default parseFile;
+export default parse;

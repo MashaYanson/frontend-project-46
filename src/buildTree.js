@@ -37,7 +37,7 @@ function buildTree(obj1, obj2) {
         value: value2,
       };
     }
-    if (value1 !== value2 && Object.hasOwn(obj2, key) && Object.hasOwn(obj1, key)) {
+    if (value1 !== value2) {
       return {
         key,
         status: status.changed,
