@@ -21,6 +21,9 @@ describe('Сравнение плоских JSON-файлов', () => {
   const fileYml1 = getFixturePath(file3);
   const fileYml2 = getFixturePath(file4);
   const expectedDiff = readFile('expectedDiff.txt');
+  const expectedYmlDiff = readFile('expectedYmlDiff.txt');
+  const expectedJsonDiff = readFile('expectedJsonDiff.txt');
+  const expectedPlaneDiff = readFile('expectedPlaneDiff.txt');
 
   test('Проверка работы с дефолтным значением форматтера', () => {
     const diff = genDiff(fileJson1, fileJson2);
@@ -28,11 +31,11 @@ describe('Сравнение плоских JSON-файлов', () => {
   });
   test('Проверка работы YML с дефолтным значением форматтера', () => {
     const diff = genDiff(fileYml1, fileYml2);
-    expect(diff).toEqual(readFile('expectedYmlDiff.txt'));
+    expect(diff).toEqual(expectedYmlDiff);
   });
   test('Проверка json вида', () => {
     const diff = genDiff(fileJson1, fileJson2, 'json');
-    expect(diff).toEqual(readFile('expectedJsonDiff.txt'));
+    expect(diff).toEqual(expectedJsonDiff);
   });
   test('Проверка stylish вида', () => {
     const diff = genDiff(fileJson1, fileJson2, 'stylish');
@@ -40,6 +43,6 @@ describe('Сравнение плоских JSON-файлов', () => {
   });
   test('Проверка плоского вида', () => {
     const diff = genDiff(fileJson1, fileJson2, 'plain');
-    expect(diff).toEqual(readFile('expectedPlaneDiff.txt'));
+    expect(diff).toEqual(expectedPlaneDiff);
   });
 });
