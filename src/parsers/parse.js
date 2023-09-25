@@ -4,8 +4,8 @@ const parseFile = (data, format) => {
   switch (format) {
     case '.json':
       return JSON.parse(data);
-
-    case '.yml' || '.yaml':
+    case '.yaml':
+    case '.yml':
       try {
         return YAML.parse(data);
       } catch (e) {
