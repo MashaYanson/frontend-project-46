@@ -2,17 +2,11 @@ import YAML from 'yaml';
 
 const parse = (data, format) => {
   switch (format) {
-    case '.json':
+    case 'json':
       return JSON.parse(data);
-    case '.yaml':
-    case '.yml':
-      try {
-        return YAML.parse(data);
-      } catch (e) {
-        console.error(`Error parsing YAML file: ${data}`);
-        return {};
-      }
-
+    case 'yaml':
+    case 'yml':
+      return YAML.parse(data);
     default:
       return {};
   }

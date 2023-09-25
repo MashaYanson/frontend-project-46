@@ -17,8 +17,8 @@ const genDiff = (file1, file2, format = 'stylish') => {
 
   const data1 = fs.readFileSync(absolutePath1, 'utf8');
   const data2 = fs.readFileSync(absolutePath2, 'utf8');
-  const extFormat1 = path.extname(file1);
-  const extFormat2 = path.extname(file2);
+  const extFormat1 = path.extname(file1).slice(1);
+  const extFormat2 = path.extname(file2).slice(1);
   const obj1 = parse(data1, extFormat1);
   const obj2 = parse(data2, extFormat2);
   const tree = buildTree(obj1, obj2);
