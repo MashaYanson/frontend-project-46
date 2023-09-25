@@ -20,10 +20,11 @@ describe('Сравнение плоских JSON-файлов', () => {
   const fileJson2 = getFixturePath(file2);
   const fileYml1 = getFixturePath(file3);
   const fileYml2 = getFixturePath(file4);
+  const expectedDiff = readFile('expectedDiff.txt');
 
   test('Проверка работы с дефолтным значением форматтера', () => {
     const diff = genDiff(fileJson1, fileJson2);
-    expect(diff).toEqual(readFile('expectedDiff.txt'));
+    expect(diff).toEqual(expectedDiff);
   });
   test('Проверка работы YML с дефолтным значением форматтера', () => {
     const diff = genDiff(fileYml1, fileYml2);
@@ -35,7 +36,7 @@ describe('Сравнение плоских JSON-файлов', () => {
   });
   test('Проверка stylish вида', () => {
     const diff = genDiff(fileJson1, fileJson2, 'stylish');
-    expect(diff).toEqual(readFile('expectedDiff.txt'));
+    expect(diff).toEqual(expectedDiff);
   });
   test('Проверка плоского вида', () => {
     const diff = genDiff(fileJson1, fileJson2, 'plain');
