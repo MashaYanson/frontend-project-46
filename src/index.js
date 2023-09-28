@@ -2,15 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import parse from './parsers/parse.js';
 import buildTree from './buildTree.js';
-import stylish from './formatters/stylish.js';
-import plain from './formatters/plain.js';
-import json from './formatters/json.js';
+import getFormatterByName from './formatters/formatersMap.js';
 
-const formatersMap = {
-  stylish,
-  plain: (tree) => plain(tree).trim(),
-  json,
-};
 const genDiff = (file1, file2, format = 'stylish') => {
   const absolutePath1 = path.resolve(process.cwd(), file1);
   const absolutePath2 = path.resolve(process.cwd(), file2);
@@ -22,6 +15,7 @@ const genDiff = (file1, file2, format = 'stylish') => {
   const obj1 = parse(data1, extFormat1);
   const obj2 = parse(data2, extFormat2);
   const tree = buildTree(obj1, obj2);
-  return (formatersMap[format](tree));
+  const formatter = getFormatterByName(format);
+  return formatter(tree);
 };
 export default genDiff;
