@@ -7,8 +7,6 @@ const prefixMap = {
 function indent(depth) {
   return depth ? '    '.repeat(depth) : '';
 }
-
-
 function stringifyValue(value, depth) {
   if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
     const entries = Object.entries(value)
