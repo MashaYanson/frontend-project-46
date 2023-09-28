@@ -39,7 +39,7 @@ const stylish = (tree) => {
         case 'nested':
           return `${indent(depth)}${prefixMap[status]}${key}: ${convertASTToString(children, depth + 1)}`;
         default:
-          return `${indent(depth)}${prefixMap.nested}${key}: ${stringifyValue(value, depth + 1)}`;
+          throw new Error(`Unknown status: ${status}`);
       }
     });
     return `{\n${lines.join('\n')}\n${indent(depth)}}`;
