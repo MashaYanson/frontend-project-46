@@ -5,42 +5,46 @@ const prefixMap = {
   nested: '    ',
 };
 
+function indent(depth) {
+  return depth ? '    '.repeat(depth) : '';
+}
+
 function stringifyValue(value, depth) {
-  const indent = depth ? '    '.repeat(depth) : '';
   if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
     const entries = Object.entries(value)
-      .map(([k, v]) => `${indent}    ${k}: ${stringifyValue(v, depth + 1)}`)
+      .flatMap(([k, v]) => `${indent(depth)}    ${k}: ${stringifyValue(v, depth + 1)}`)
       .join('\n');
-    return `{\n${entries}\n${indent}}`;
+    return `{\n${entries}\n${indent(depth)}}`;
   }
   return value;
 }
+
 const stylish = (tree) => {
   function convertASTToString(ast, depth = 0) {
-    const indent = depth ? '    '.repeat(depth) : '';
-    const lines = ast.map((node) => {
+    const lines = ast.flatMap((node) => {
       const {
         key, status, value, children, value1, value2,
       } = node;
       switch (status) {
         case 'added':
-          return `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
         case 'deleted':
-          return `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
-        case 'changed':
-          // eslint-disable-next-line max-len
-          return `${indent}${prefixMap.deleted}${key}: ${stringifyValue(value1, depth + 1)}\n${indent}${prefixMap.added}${key}: ${stringifyValue(value2, depth + 1)}`;
         case 'unchanged':
-          return `${indent}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
+          return `${indent(depth)}${prefixMap[status]}${key}: ${stringifyValue(value, depth + 1)}`;
+        case 'changed':
+          return [
+            `${indent(depth)}${prefixMap.deleted}${key}: ${stringifyValue(value1, depth + 1)}`,
+            `${indent(depth)}${prefixMap.added}${key}: ${stringifyValue(value2, depth + 1)}`,
+          ];
         case 'nested':
-          return `${indent}${prefixMap[status]}${key}: ${convertASTToString(children, depth + 1)}`;
+          return `${indent(depth)}${prefixMap[status]}${key}: ${convertASTToString(children, depth + 1)}`;
         default:
-          return `${indent}${prefixMap.nested}${key}: ${stringifyValue(value, depth + 1)}`;
+          throw new Error(`Unknown status: ${status}`);
       }
     });
-    return `{\n${lines.join('\n')}\n${'    '.repeat(depth)}}`;
+    return `{\n${lines.join('\n')}\n${indent(depth)}}`;
   }
 
   return convertASTToString(tree);
 };
+
 export default stylish;

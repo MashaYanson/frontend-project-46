@@ -8,8 +8,7 @@ const parse = (data, format) => {
     case 'yml':
       return YAML.parse(data);
     default:
-      console.error(`Error unsupported format: ${data}`);
-      return {};
+      throw new Error(`Unsupported format: ${format}`);
   }
 };
 export default parse;

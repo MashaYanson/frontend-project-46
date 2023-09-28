@@ -11,7 +11,6 @@ const getValue = (value) => {
   return '[complex value]';
 };
 
-// найти родителей каждого ключа
 const plain = (tree) => {
   const iter = (node, parent = '') => node.flatMap(({
     key, status, value, children, value1, value2,
@@ -32,7 +31,7 @@ const plain = (tree) => {
         return iter(children, path);
 
       case 'unchanged':
-        return null; // Возвращаем null для пропуска неизмененных свойств
+        return [];
 
       default:
         throw Error(`${status} is not found`);
