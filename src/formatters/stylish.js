@@ -35,7 +35,6 @@ const stylish = (tree) => {
             `${indent(depth)}${prefixMap.deleted}${key}: ${stringifyValue(value1, depth + 1)}`,
             `${indent(depth)}${prefixMap.added}${key}: ${stringifyValue(value2, depth + 1)}`,
           ];
-
         case 'nested':
           return `${indent(depth)}${prefixMap[status]}${key}: ${convertASTToString(children, depth + 1)}`;
         default:
