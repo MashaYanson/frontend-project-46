@@ -37,7 +37,7 @@ const stylish = (tree) => {
           return `${indent(depth)}${prefixMap.nested}${key}: ${stringifyValue(value, depth + 1)}`;
       }
     });
-    return `{\n${lines.join('\n')}\n${'    '.repeat(depth)}}`;
+    return `{\n${lines.join('\n')}\n${indent(depth)}}`;
   }
 
   return convertASTToString(tree);
