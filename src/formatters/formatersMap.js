@@ -2,16 +2,16 @@ import plain from './plain.js';
 import json from './json.js';
 import stylish from './stylish.js';
 
-const getFormatterByName = (format) => {
-  switch (format) {
+const getFormatterByName = (tree, formatName) => {
+  switch (formatName) {
     case 'plain':
-      return (tree) => plain(tree);
+      return plain(tree);
     case 'json':
-      return (tree) => json(tree);
+      return json(tree);
     case 'stylish':
-      return (tree) => stylish(tree);
+      return stylish(tree);
     default:
-      throw new Error(`Unsupported format: ${format}`);
+      throw new Error(`Unsupported format: ${formatName}`);
   }
 };
 

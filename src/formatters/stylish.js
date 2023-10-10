@@ -1,12 +1,13 @@
+const INDENT = '    ';
 const prefixMap = {
-  unchanged: '    ',
-  deleted: '  - ',
-  added: '  + ',
-  nested: '    ',
+  unchanged: `${INDENT.slice(2)}  `,
+  deleted: `${INDENT.slice(2)}- `,
+  added: `${INDENT.slice(2)}+ `,
+  nested: `${INDENT.slice(2)}  `,
 };
 
 function indent(depth) {
-  return depth ? '    '.repeat(depth) : '';
+  return depth ? INDENT.repeat(depth) : '';
 }
 
 function stringifyValue(value, depth) {

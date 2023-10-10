@@ -14,7 +14,6 @@ const genDiff = (file1, file2, format = 'stylish') => {
   const obj1 = parse(...getDataAndFormat(file1));
   const obj2 = parse(...getDataAndFormat(file2));
   const tree = buildTree(obj1, obj2);
-  const formatter = getFormatterByName(format);
-  return formatter(tree);
+  return getFormatterByName(tree, format);
 };
 export default genDiff;
