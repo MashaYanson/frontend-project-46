@@ -36,7 +36,7 @@ const plain = (tree) => {
       default:
         throw Error(`${status} is not found`);
     }
-  }).filter(Boolean).join('\n');
+  }).join('\n');
   return iter(tree);
 };
 
